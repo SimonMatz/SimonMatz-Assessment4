@@ -1,20 +1,26 @@
 #pragma once
 #include <iostream>
-#include <Windows.h>
-#include <conio.h>
 #include <string>
-#include <ctime>
-#include "termcolor.h"
+
 
 using namespace std;
-using namespace termcolor;
-
-class Functions
-{
-public:
-
-	
 
 
-};
+static char player = 'x';
+static bool tryAgain = false;
+//static int winner = 0;
 
+
+int displayMenuScreen();
+
+void clearSelections();
+
+void drawBoard();
+
+void playerChange();
+
+void selection();
+
+int checkWinner();
+
+int playTTT(int winner);
