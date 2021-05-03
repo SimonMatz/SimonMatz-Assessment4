@@ -7,11 +7,11 @@
 #include <fstream>
 #include "termcolor.h"
 #include "Functions.h"
-#include "textpixels.h"
+//#include "textpixels.h"
 
 using namespace std;
 using namespace termcolor;
-using namespace textpixels;
+
 
 
 
@@ -77,25 +77,17 @@ void playerChange()
 
 }
 
-//void checkError(char numbers[])
-//{
-//	string pause;
-//
-//	if (numbers[1] == 'x' || numbers[1] == 'o')
-//	{
-//		cout << "\n\n\nERROR 2\n\n";
-//		cin >> pause;
-//		tryAgain = true;
-//	}
-//}
-
 void selection(char numbers[])
 {
 	string pause;
+	int a = 0;
 
 	while (true)
 	{	
-		if (keyIsDown('1'))
+		cout << "Enter number to play accordingly > ";
+		cin >> a;
+
+		if (a == 1)
 		{
 
 			if (numbers[0] == '1')
@@ -106,14 +98,14 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR 1\n\n";
+				cout << "\n\n\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
 			return;
 		}
 
-		else if (keyIsDown('2'))
+		else if (a == 2)
 		{
 			if (numbers[1] == '2')
 			{
@@ -129,115 +121,120 @@ void selection(char numbers[])
 			}
 			return;
 		}
-		else if (keyIsDown('3'))
+		else if (a == 3)
 		{
-			
-
-			if (numbers[2] == 'x' || numbers[2] == 'o')
-			{
-				
-				tryAgain = true;
-			}
-			else
+			if (numbers[2] == '3')
 			{
 				numbers[2] = player;
 				tryAgain = false;
 			}
+
+			else
+			{
+				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cin >> pause;
+				tryAgain = true;
+			}
 			return;
 		}
 
-		else if (keyIsDown('4'))
+		else if (a == 4)
 		{
-			
-			if (numbers[3] == 'x' || numbers[3] == 'o')
-			{
-				
-				tryAgain = true;
-			}
-			else
+			if (numbers[3] == '4')
 			{
 				numbers[3] = player;
 				tryAgain = false;
 			}
-			return;
-		}
-		else if (keyIsDown('5'))
-		{
-			
-			if (numbers[4] == 'x' || numbers[4] == 'o')
+
+			else
 			{
-				
+				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cin >> pause;
 				tryAgain = true;
 			}
-			else
+			return;
+		}
+		else if (a == 5)
+		{
+			if (numbers[4] == '5')
 			{
 				numbers[4] = player;
 				tryAgain = false;
 			}
+
+			else
+			{
+				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cin >> pause;
+				tryAgain = true;
+			}
 			return;
 
 		}
 
-		else if (keyIsDown('6'))
+		else if (a == 6)
 		{
-			
-			if (numbers[5] == 'x' || numbers[5] == 'o')
-			{
-				
-				tryAgain = true;
-			}
-			else
+			if (numbers[5] == '6')
 			{
 				numbers[5] = player;
 				tryAgain = false;
 			}
-			return;
-		}
-		else if (keyIsDown('7'))
-		{
-			
-			if (numbers[6] == 'x' || numbers[6] == 'o')
+
+			else
 			{
-				
+				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cin >> pause;
 				tryAgain = true;
 			}
-			else
+			return;
+		}
+		else if (a == 7)
+		{
+			if (numbers[6] == '7')
 			{
 				numbers[6] = player;
 				tryAgain = false;
 			}
 
+			else
+			{
+				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cin >> pause;
+				tryAgain = true;
+			}
 			return;
 		}
 
-		else if (keyIsDown('8'))
+		else if (a == 8)
 		{
-			
-			if (numbers[7] == 'x' || numbers[7] == 'o')
-			{
-				
-				tryAgain = true;
-			}
-			else
+			if (numbers[7] == '8')
 			{
 				numbers[7] = player;
 				tryAgain = false;
 			}
 
-			return;
-		}
-		else if (keyIsDown('9'))
-		{
-			
-			if (numbers[8] == 'x' || numbers[8] == 'o')
+			else
 			{
-				
+				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cin >> pause;
 				tryAgain = true;
 			}
-			else
+
+			return;
+		}
+		else if (a == 9)
+		{
+			if (numbers[8] == '9')
 			{
 				numbers[8] = player;
 				tryAgain = false;
+			}
+
+			else
+			{
+				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cin >> pause;
+				tryAgain = true;
 			}
 
 			return;
@@ -381,7 +378,7 @@ int playTTT(char numbers[])
 				system("cls");
 				cout << "It's a draw!!\n" << endl;
 				cin >> next;
-				return 0;
+				return winner;
 			}
 			drawBoard(numbers);
 
