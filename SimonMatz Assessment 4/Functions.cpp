@@ -18,8 +18,9 @@ using namespace termcolor;
 enum MenuChoice
 {
 	PLAY = 1,
+	PLAY2,
+	SCORES,
 	EXIT,
-	CREDITS,
 	CHOICES_END     //will always be last valid choice +1
 };
 
@@ -33,15 +34,16 @@ int displayMenuScreen()
 	{
 		cout << on_red << "xxxxxxxxxx  Welcome to Tic Tac Toe  xxxxxxxxxx\n\n" << reset;
 
-		cout << "\t\t" << cyan << "1" << white << ": Play\n";
-		cout << "\t\t" << cyan << "2" << white << ": Exit\n";
-		cout << "\t\t" << cyan << "3" << white << ": Credits\n";
+		cout << "\t\t" << cyan << "1" << white << ": Player vs Player\n";
+		cout << "\t\t" << cyan << "2" << white << ": Player vs CPU\n";
+		cout << "\t\t" << cyan << "3" << white << ": Scores\n";
+		cout << "\t\t" << cyan << "4" << white << ": Exit\n";
 
 		if (!error.empty())     // If player entered wrong choice, error string won't be empty
 		{
 			cout << error << endl;
 		}
-		cout << "\n\t\tEnter 1, 2 or 3  " << cyan << "> " << white;
+		cout << "\n\t\tEnter 1, 2, 3 or 4  " << cyan << "> " << white;
 		cin >> choice;
 
 		if (choice > 0 && choice < MenuChoice::CHOICES_END)
@@ -61,19 +63,27 @@ void drawBoard(char numbers[])
 {
 	system("cls");
 
-	cout << "| " << numbers[0] << " | " << numbers[1] << " | " << numbers[2] << " | " << endl;
-	cout << "|---|---|---|" << endl;
-	cout << "| " << numbers[3] << " | " << numbers[4] << " | " << numbers[5] << " | " << endl;
-	cout << "|---|---|---|" << endl;
-	cout << "| " << numbers[6] << " | " << numbers[7] << " | " << numbers[8] << " | " << endl;
+	cout << "|-------|-------|-------|" << endl;
+	cout << "|       |       |       |" << endl;
+	cout << "|   " << numbers[0] << "   |   " << numbers[1] << "   |   " << numbers[2] << "   |   " << endl;
+	cout << "|       |       |       |" << endl;
+	cout << "|-------|-------|-------|" << endl;
+	cout << "|       |       |       |" << endl;
+	cout << "|   " << numbers[3] << "   |   " << numbers[4] << "   |   " << numbers[5] << "   |   " << endl;
+	cout << "|       |       |       |" << endl;
+	cout << "|-------|-------|-------|" << endl;
+	cout << "|       |       |       |" << endl;
+	cout << "|   " << numbers[6] << "   |   " << numbers[7] << "   |   " << numbers[8] << "   |   " << endl;
+	cout << "|       |       |       |" << endl;
+	cout << "|-------|-------|-------|" << endl;
 }
 
 void playerChange()
 {
-	if (player == 'x')
-		player = 'o';
+	if (player == 'X')
+		player = 'O';
 	else
-		player = 'x';
+		player = 'X';
 
 }
 
@@ -84,7 +94,7 @@ void selection(char numbers[])
 
 	while (true)
 	{	
-		cout << "Enter number to play accordingly > ";
+		cout << "\nEnter number to play accordingly > ";
 		cin >> a;
 
 		if (a == 1)
@@ -98,7 +108,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cout << "\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -115,7 +125,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR 2\n\n";
+				cout << "\nERROR 2\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -131,7 +141,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cout << "\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -148,7 +158,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cout << "\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -164,7 +174,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cout << "\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -182,7 +192,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cout << "\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -198,7 +208,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cout << "\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -215,7 +225,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cout << "\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -232,7 +242,7 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\n\n\nERROR. Press y to continue\n\n";
+				cout << "\nERROR. Press y to continue\n\n";
 				cin >> pause;
 				tryAgain = true;
 			}
@@ -245,84 +255,84 @@ void selection(char numbers[])
 int checkWinner(char numbers[])
 {
 	//player 1 win check
-	if (numbers[0] == 'x' && numbers[1] == 'x' && numbers[2] == 'x')
+	if (numbers[0] == 'X' && numbers[1] == 'X' && numbers[2] == 'X')
 	{
 		winner = 1;
 		return winner;
 	}
-	if (numbers[3] == 'x' && numbers[4] == 'x' && numbers[5] == 'x')
+	if (numbers[3] == 'X' && numbers[4] == 'X' && numbers[5] == 'X')
 	{
 		winner = 1;
 		return winner;
 	}
-	if (numbers[6] == 'x' && numbers[7] == 'x' && numbers[8] == 'x')
+	if (numbers[6] == 'X' && numbers[7] == 'X' && numbers[8] == 'X')
 	{
 		winner = 1;
 		return winner;
 	}
-	if (numbers[0] == 'x' && numbers[3] == 'x' && numbers[6] == 'x')
+	if (numbers[0] == 'X' && numbers[3] == 'X' && numbers[6] == 'X')
 	{
 		winner = 1;
 		return winner;
 	}
-	if (numbers[1] == 'x' && numbers[4] == 'x' && numbers[7] == 'x')
+	if (numbers[1] == 'X' && numbers[4] == 'X' && numbers[7] == 'X')
 	{
 		winner = 1;
 		return winner;
 	}
-	if (numbers[2] == 'x' && numbers[5] == 'x' && numbers[8] == 'x')
+	if (numbers[2] == 'X' && numbers[5] == 'X' && numbers[8] == 'X')
 	{
 		winner = 1;
 		return winner;
 	}
-	if (numbers[0] == 'x' && numbers[4] == 'x' && numbers[8] == 'x')
+	if (numbers[0] == 'X' && numbers[4] == 'X' && numbers[8] == 'X')
 	{
 		winner = 1;
 		return winner;
 	}
-	if (numbers[2] == 'x' && numbers[4] == 'x' && numbers[6] == 'x')
+	if (numbers[2] == 'X' && numbers[4] == 'X' && numbers[6] == 'X')
 	{
 		winner = 1;
 		return winner;
 	}
 
 	//player 2 win check
-	if (numbers[0] == 'o' && numbers[1] == 'o' && numbers[2] == 'o')
+	if (numbers[0] == 'O' && numbers[1] == 'O' && numbers[2] == 'O')
 	{
 		winner = 2;
 		return winner;
 	}
-	if (numbers[3] == 'o' && numbers[4] == 'o' && numbers[5] == 'o')
+	if (numbers[3] == 'O' && numbers[4] == 'O' && numbers[5] == 'O')
 	{
 		winner = 2;
 		return winner;
 	}
-	if (numbers[6] == 'o' && numbers[7] == 'o' && numbers[8] == 'o')
+	if (numbers[6] == 'O' && numbers[7] == 'O' && numbers[8] == 'O')
 	{
 		winner = 2;
 		return winner;
 	}
-	if (numbers[0] == 'o' && numbers[3] == 'o' && numbers[6] == 'o')
+	if (numbers[0] == 'O' && numbers[3] == 'O' && numbers[6] == 'O')
 	{
 		winner = 2;
 		return winner;
 	}
-	if (numbers[1] == 'o' && numbers[4] == 'o' && numbers[7] == 'o')
+	if (numbers[1] == 'O' && numbers[4] == 'O' && numbers[7] == 'O')
 	{
 		winner = 2;
 		return winner;
 	}
-	if (numbers[2] == 'o' && numbers[5] == 'o' && numbers[8] == 'o')
+	if (numbers[2] == 'O' && numbers[5] == 'O' && numbers[8] == 'O')
 	{
 		winner = 2;
 		return winner;
 	}
-	if (numbers[0] == 'o' && numbers[4] == 'o' && numbers[8] == 'o')
+	if (numbers[0] == 'O' && numbers[4] == 'O' && numbers[8] == 'O')
 	{
 		winner = 2;
 		return winner;
 	}
-	if (numbers[2] == 'o' && numbers[4] == 'o' && numbers[6] == 'o')
+	if (numbers[2] == 'O' && numbers[4] == 'O' && numbers[6] == 'O')
 	{
 		winner = 2;
 		return winner;
@@ -332,6 +342,67 @@ int checkWinner(char numbers[])
 }
 
 int playTTT(char numbers[])
+{
+	int drawCount = 0;
+	while (winner != 1 || winner != 2)
+	{
+		drawCount++;
+		string next;
+		winner = 0;
+
+		drawBoard(numbers);
+		do
+		{
+			chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+			selection(numbers);
+			chrono::steady_clock::time_point end = chrono::steady_clock::now();
+			int time = chrono::duration_cast<chrono::seconds>(end - begin).count();
+
+			if (time > 9999)
+			{
+				system("cls");
+				cout << "Time violation! You automatically lost. Press y to continue" << endl;
+				cin >> next;
+
+				return 0;
+			}
+
+			winner = checkWinner(numbers);
+
+			if (winner == 1)
+			{
+				system("cls");
+				cout << "Player 1 wins!!\n" << endl;
+				//cin >> next;
+				return winner;
+			}
+			else if (winner == 2)
+			{
+				system("cls");
+				cout << "Player 2 wins!!\n" << endl;
+				//cin >> next;
+				return winner;
+			}
+			else if (drawCount == 9)
+			{
+				system("cls");
+				cout << "It's a draw!!\n" << endl;
+				//cin >> next;
+				return winner;
+			}
+			drawBoard(numbers);
+
+		} while (tryAgain == true);
+
+		playerChange();
+		
+	}
+	system("cls");
+
+	return winner;
+}
+
+int playTTT2(char numbers[])
 {
 	int drawCount = 0;
 	while (winner != 1 || winner != 2)
@@ -385,7 +456,7 @@ int playTTT(char numbers[])
 		} while (tryAgain == true);
 
 		playerChange();
-		
+
 	}
 	system("cls");
 

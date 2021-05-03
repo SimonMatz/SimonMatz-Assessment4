@@ -12,9 +12,10 @@ using namespace std;
 enum MenuChoice
 {
 	PLAY = 1,
+	PLAY2,
+	SCORES,
 	EXIT,
-	CREDITS,
-	CHOICES_END     //will alsways be last valid choice +1
+	CHOICES_END //will alsways be last valid choice +1
 };
 
 void main()
@@ -48,9 +49,43 @@ void main()
 			} while (playAgain == 1);
 		}
 
+		else if (choice == PLAY2)
+		{
+			system("cls");
+
+			do
+			{
+				char numbers[9]{ '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+				winner = playTTT2(numbers);
+
+				if (winner == 1 || winner == 2)
+				{
+					cout << "Enter 1 to play again or any other number to return to menu > ";
+					cin >> playAgain;
+					system("cls");
+				}
+
+			} while (playAgain == 1);
+		}
+
+		else if (choice == SCORES)
+		{
+			system("cls");
+
+			do
+			{
+				cout << "Scores coming soon...\n\n" << endl;
+
+				
+					cout << "Enter 2 to return to menu > ";
+					cin >> playAgain;
+					system("cls");
+				
+
+			} while (playAgain == 1);
+		}
+
 	} while (choice != EXIT);
 
-	system("cls");
-	displayMenuScreen();
-
+	return;
 }

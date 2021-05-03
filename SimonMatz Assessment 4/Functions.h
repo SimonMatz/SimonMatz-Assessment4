@@ -4,7 +4,7 @@
 
 using namespace std;
 
-static char player = 'x';
+static char player = 'X';
 static bool tryAgain = false;
 static int winner = 0;
 
@@ -19,3 +19,5 @@ void selection(char numbers[]);
 int checkWinner(char numbers[]);
 
 int playTTT(char numbers []);
+
+int playTTT2(char numbers[]);
