@@ -39,6 +39,12 @@ void main()
 				char numbers[9]{ '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 				winner = playTTT(numbers);
 
+				fstream  writeFile;
+				//append mode FROM: https://stackoverflow.com/questions/4155537/writing-into-a-text-file-without-overwriting-it
+				writeFile.open("PlayerVsPlayerScores.txt", fstream::app);
+				writeFile << winner << endl;
+				writeFile.close();
+
 				if (winner == 1 || winner == 2)
 				{
 					cout << "Enter 1 to play again or any other number to return to menu > ";
@@ -57,6 +63,12 @@ void main()
 			{
 				char numbers[9]{ '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 				winner = playTTT2(numbers);
+
+				fstream  writeFile;
+				//append mode FROM: https://stackoverflow.com/questions/4155537/writing-into-a-text-file-without-overwriting-it
+				writeFile.open("PlayerVsCpuScores.txt", fstream::app);
+				writeFile << winner << endl;
+				writeFile.close();
 
 				if (winner == 1 || winner == 2)
 				{

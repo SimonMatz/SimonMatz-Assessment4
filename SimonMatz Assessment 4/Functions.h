@@ -12,12 +12,18 @@ int displayMenuScreen();
 
 void drawBoard(char numbers[]);
 
-void playerChange();
+char playerChange();
 
 void selection(char numbers[]);
 
 int checkWinner(char numbers[]);
 
-int playTTT(char numbers []);
+void showScores();
+
+int playTTT(char numbers[]);
+
+bool blockWin(char numbers[]);
+
+void cpuSelection(char numbers[]);
 
 int playTTT2(char numbers[]);

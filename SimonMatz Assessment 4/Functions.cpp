@@ -78,13 +78,14 @@ void drawBoard(char numbers[])
 	cout << "|-------|-------|-------|" << endl;
 }
 
-void playerChange()
+char playerChange()
 {
 	if (player == 'X')
 		player = 'O';
 	else
 		player = 'X';
 
+	return player;
 }
 
 void selection(char numbers[])
@@ -341,6 +342,28 @@ int checkWinner(char numbers[])
 	return winner;
 }
 
+void showScores()
+{
+	
+
+	//ifstream readFile;
+	//readFile.open("PlayerVsPlayerScores.txt");
+
+	////using pointers to create dynamic size array
+	//int* wins = new int[amountOfWins];
+	////variable for looping through array
+	//int count1 = 0;
+
+	////looping through line 4 until end of file and storing numbers in array
+	//while (!readFile.eof())
+	//{
+	//	readFile >> wins[count1];
+	//	count1++;
+	//}
+	//readFile.close();
+
+}
+
 int playTTT(char numbers[])
 {
 	int drawCount = 0;
@@ -373,21 +396,18 @@ int playTTT(char numbers[])
 			{
 				system("cls");
 				cout << "Player 1 wins!!\n" << endl;
-				//cin >> next;
 				return winner;
 			}
 			else if (winner == 2)
 			{
 				system("cls");
 				cout << "Player 2 wins!!\n" << endl;
-				//cin >> next;
 				return winner;
 			}
 			else if (drawCount == 9)
 			{
 				system("cls");
 				cout << "It's a draw!!\n" << endl;
-				//cin >> next;
 				return winner;
 			}
 			drawBoard(numbers);
@@ -402,9 +422,167 @@ int playTTT(char numbers[])
 	return winner;
 }
 
+bool blockWin(char numbers[])
+{
+	//bool winningChance = false;
+	if (numbers[0] == 'X' && numbers[1] == 'X')
+	{
+		//winningChance = true;
+		return true;
+	}
+	if (numbers[0] == 'X' && numbers[2] == 'X')
+	{
+		return true;
+	}
+	if (numbers[1] == 'X' && numbers[2] == 'X')
+	{
+		return true;
+	}
+	/*if (numbers[0] == 'X' && numbers[3] == 'X' && numbers[6] == 'X')
+	{
+		winner = 1;
+		return winner;
+	}
+	if (numbers[1] == 'X' && numbers[4] == 'X' && numbers[7] == 'X')
+	{
+		winner = 1;
+		return winner;
+	}
+	if (numbers[2] == 'X' && numbers[5] == 'X' && numbers[8] == 'X')
+	{
+		winner = 1;
+		return winner;
+	}
+	if (numbers[0] == 'X' && numbers[4] == 'X' && numbers[8] == 'X')
+	{
+		winner = 1;
+		return winner;
+	}
+	if (numbers[2] == 'X' && numbers[4] == 'X' && numbers[6] == 'X')
+	{
+		winner = 1;
+		return winner;
+	}*/
+}
+
+void cpuSelection(char numbers[])
+{
+	bool winningChance = false;
+
+	do
+	{
+		winningChance = blockWin(numbers);
+
+		srand(time(0));
+		int a = (rand() % 9) + 1;
+		
+		if (a == 1)
+		{
+			if (numbers[0] == '1')
+			{
+				numbers[0] = player;
+				tryAgain = false;
+			}
+			else
+			tryAgain = true;
+		}
+
+		else if (a == 2)
+		{
+			if (numbers[1] == '2')
+			{
+				numbers[1] = player;
+				tryAgain = false;
+			}
+			else
+			tryAgain = true;
+		}
+
+		else if (a == 3)
+		{
+			if (numbers[2] == '3')
+			{
+				numbers[2] = player;
+				tryAgain = false;
+			}
+			else
+			tryAgain = true;
+		}
+
+		else if (a == 4)
+		{
+			if (numbers[3] == '4')
+			{
+				numbers[3] = player;
+				tryAgain = false;
+			}
+			else
+			tryAgain = true;
+		}
+
+		else if (a == 5)
+		{
+			if (numbers[4] == '5')
+			{
+				numbers[4] = player;
+				tryAgain = false;
+			}
+			else
+			tryAgain = true;
+		}
+
+		else if (a == 6)
+		{
+			if (numbers[5] == '6')
+			{
+				numbers[5] = player;
+				tryAgain = false;
+			}
+			else
+			tryAgain = true;
+		}
+
+		else if (a == 7)
+		{
+			if (numbers[6] == '7')
+			{
+				numbers[6] = player;
+				tryAgain = false;
+			}
+			else
+			tryAgain = true;
+		}
+
+		else if (a == 8)
+		{
+			if (numbers[7] == '8')
+			{
+				numbers[7] = player;
+				tryAgain = false;
+			}
+			else
+			tryAgain = true;
+		}
+
+		else if (a == 9)
+		{
+			if (numbers[8] == '9')
+			{
+				numbers[8] = player;
+				tryAgain = false;
+			}
+			else	
+			tryAgain = true;	
+		}
+
+	}while (tryAgain == true);
+}
+
 int playTTT2(char numbers[])
 {
 	int drawCount = 0;
+	char cpuPlayer;
+
 	while (winner != 1 || winner != 2)
 	{
 		drawCount++;
@@ -434,28 +612,31 @@ int playTTT2(char numbers[])
 			{
 				system("cls");
 				cout << "Player 1 wins!!\n" << endl;
-				cin >> next;
 				return winner;
 			}
 			else if (winner == 2)
 			{
 				system("cls");
 				cout << "Player 2 wins!!\n" << endl;
-				cin >> next;
 				return winner;
 			}
 			else if (drawCount == 9)
 			{
 				system("cls");
 				cout << "It's a draw!!\n" << endl;
-				cin >> next;
 				return winner;
 			}
 			drawBoard(numbers);
 
 		} while (tryAgain == true);
 
-		playerChange();
+		cpuPlayer=playerChange();
+
+		if (cpuPlayer == 'O')
+		{
+			cpuSelection(numbers);
+			playerChange();
+		}
 
 	}
 	system("cls");
