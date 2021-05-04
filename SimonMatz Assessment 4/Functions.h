@@ -22,7 +22,7 @@ void showScores();
 
 int playTTT(char numbers[]);
 
-bool blockWin(char numbers[]);
+int blockWin(char numbers[]);
 
 void cpuSelection(char numbers[]);
 

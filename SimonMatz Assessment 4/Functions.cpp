@@ -422,159 +422,180 @@ int playTTT(char numbers[])
 	return winner;
 }
 
-bool blockWin(char numbers[])
+int blockWin(char numbers[])
 {
-	//bool winningChance = false;
-	if (numbers[0] == 'X' && numbers[1] == 'X')
+	int winningChance = -1;
+	
+	//top row
+	if (numbers[0] == 'X' && numbers[1] == 'X' && numbers[2] != 'O')
 	{
-		//winningChance = true;
-		return true;
+		winningChance = 2;
+		return winningChance;
 	}
-	if (numbers[0] == 'X' && numbers[2] == 'X')
+	if (numbers[1] == 'X' && numbers[2] == 'X' && numbers[0] != 'O')
 	{
-		return true;
+		winningChance = 0;
+		return winningChance;
 	}
-	if (numbers[1] == 'X' && numbers[2] == 'X')
+	if (numbers[0] == 'X' && numbers[2] == 'X' && numbers[1] != 'O')
 	{
-		return true;
+		winningChance = 1;
+		return winningChance;
 	}
-	/*if (numbers[0] == 'X' && numbers[3] == 'X' && numbers[6] == 'X')
+
+	//middle row
+	if (numbers[3] == 'X' && numbers[4] == 'X' && numbers[5] != 'O')
 	{
-		winner = 1;
-		return winner;
+		winningChance = 5;
+		return winningChance;
 	}
-	if (numbers[1] == 'X' && numbers[4] == 'X' && numbers[7] == 'X')
+	if (numbers[4] == 'X' && numbers[5] == 'X' && numbers[3] != 'O')
 	{
-		winner = 1;
-		return winner;
+		winningChance = 3;
+		return winningChance;
 	}
-	if (numbers[2] == 'X' && numbers[5] == 'X' && numbers[8] == 'X')
+	if (numbers[3] == 'X' && numbers[5] == 'X' && numbers[4] != 'O')
 	{
-		winner = 1;
-		return winner;
+		winningChance = 4;
+		return winningChance;
 	}
-	if (numbers[0] == 'X' && numbers[4] == 'X' && numbers[8] == 'X')
+	//bottom row
+	if (numbers[6] == 'X' && numbers[7] == 'X' && numbers[8] != 'O')
 	{
-		winner = 1;
-		return winner;
+		winningChance = 8;
+		return winningChance;
 	}
-	if (numbers[2] == 'X' && numbers[4] == 'X' && numbers[6] == 'X')
+	if (numbers[7] == 'X' && numbers[8] == 'X' && numbers[6] != 'O')
 	{
-		winner = 1;
-		return winner;
-	}*/
+		winningChance = 6;
+		return winningChance;
+	}
+	if (numbers[6] == 'X' && numbers[8] == 'X' && numbers[7] != 'O')
+	{
+		winningChance = 7;
+		return winningChance;
+	}
+	
+	return winningChance;
 }
 
 void cpuSelection(char numbers[])
 {
-	bool winningChance = false;
-
 	do
 	{
-		winningChance = blockWin(numbers);
+		int winningChance = blockWin(numbers);
 
-		srand(time(0));
-		int a = (rand() % 9) + 1;
+		if (winningChance != -1)
+		{
+			numbers[winningChance] = player;
+			tryAgain = false;
+			winningChance = -1;
+		}
 		
-		if (a == 1)
+		else
 		{
-			if (numbers[0] == '1')
-			{
-				numbers[0] = player;
-				tryAgain = false;
-			}
-			else
-			tryAgain = true;
-		}
+			srand(time(0));
+			int a = (rand() % 9) + 1;
 
-		else if (a == 2)
-		{
-			if (numbers[1] == '2')
+			if (a == 1)
 			{
-				numbers[1] = player;
-				tryAgain = false;
+				if (numbers[0] == '1')
+				{
+					numbers[0] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
 			}
-			else
-			tryAgain = true;
-		}
 
-		else if (a == 3)
-		{
-			if (numbers[2] == '3')
+			else if (a == 2)
 			{
-				numbers[2] = player;
-				tryAgain = false;
+				if (numbers[1] == '2')
+				{
+					numbers[1] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
 			}
-			else
-			tryAgain = true;
-		}
 
-		else if (a == 4)
-		{
-			if (numbers[3] == '4')
+			else if (a == 3)
 			{
-				numbers[3] = player;
-				tryAgain = false;
+				if (numbers[2] == '3')
+				{
+					numbers[2] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
 			}
-			else
-			tryAgain = true;
-		}
 
-		else if (a == 5)
-		{
-			if (numbers[4] == '5')
+			else if (a == 4)
 			{
-				numbers[4] = player;
-				tryAgain = false;
+				if (numbers[3] == '4')
+				{
+					numbers[3] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
 			}
-			else
-			tryAgain = true;
-		}
 
-		else if (a == 6)
-		{
-			if (numbers[5] == '6')
+			else if (a == 5)
 			{
-				numbers[5] = player;
-				tryAgain = false;
+				if (numbers[4] == '5')
+				{
+					numbers[4] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
 			}
-			else
-			tryAgain = true;
-		}
 
-		else if (a == 7)
-		{
-			if (numbers[6] == '7')
+			else if (a == 6)
 			{
-				numbers[6] = player;
-				tryAgain = false;
+				if (numbers[5] == '6')
+				{
+					numbers[5] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
 			}
-			else
-			tryAgain = true;
-		}
 
-		else if (a == 8)
-		{
-			if (numbers[7] == '8')
+			else if (a == 7)
 			{
-				numbers[7] = player;
-				tryAgain = false;
+				if (numbers[6] == '7')
+				{
+					numbers[6] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
 			}
-			else
-			tryAgain = true;
-		}
 
-		else if (a == 9)
-		{
-			if (numbers[8] == '9')
+			else if (a == 8)
 			{
-				numbers[8] = player;
-				tryAgain = false;
+				if (numbers[7] == '8')
+				{
+					numbers[7] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
 			}
-			else	
-			tryAgain = true;	
-		}
 
+			else if (a == 9)
+			{
+				if (numbers[8] == '9')
+				{
+					numbers[8] = player;
+					tryAgain = false;
+				}
+				else
+					tryAgain = true;
+			}
+		}
 	}while (tryAgain == true);
 }
 
