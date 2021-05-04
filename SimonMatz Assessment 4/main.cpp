@@ -70,7 +70,7 @@ void main()
 				writeFile << winner << endl;
 				writeFile.close();
 
-				if (winner == 1 || winner == 2)
+				if (winner == 1 || winner == 2 || winner == 3)
 				{
 					cout << "Enter 1 to play again or any other number to return to menu > ";
 					cin >> playAgain;

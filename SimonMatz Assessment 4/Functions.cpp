@@ -475,6 +475,91 @@ int blockWin(char numbers[])
 		winningChance = 7;
 		return winningChance;
 	}
+
+	//left row
+	if (numbers[0] == 'X' && numbers[3] == 'X' && numbers[6] != 'O')
+	{
+		winningChance = 6;
+		return winningChance;
+	}
+	if (numbers[3] == 'X' && numbers[6] == 'X' && numbers[0] != 'O')
+	{
+		winningChance = 0;
+		return winningChance;
+	}
+	if (numbers[0] == 'X' && numbers[6] == 'X' && numbers[3] != 'O')
+	{
+		winningChance = 3;
+		return winningChance;
+	}
+
+	//middle down
+	if (numbers[1] == 'X' && numbers[4] == 'X' && numbers[7] != 'O')
+	{
+		winningChance = 7;
+		return winningChance;
+	}
+	if (numbers[4] == 'X' && numbers[7] == 'X' && numbers[1] != 'O')
+	{
+		winningChance = 1;
+		return winningChance;
+	}
+	if (numbers[1] == 'X' && numbers[7] == 'X' && numbers[4] != 'O')
+	{
+		winningChance = 4;
+		return winningChance;
+	}
+
+	//right row
+	if (numbers[2] == 'X' && numbers[5] == 'X' && numbers[8] != 'O')
+	{
+		winningChance = 8;
+		return winningChance;
+	}
+	if (numbers[5] == 'X' && numbers[8] == 'X' && numbers[2] != 'O')
+	{
+		winningChance = 2;
+		return winningChance;
+	}
+	if (numbers[2] == 'X' && numbers[8] == 'X' && numbers[5] != 'O')
+	{
+		winningChance = 5;
+		return winningChance;
+	}
+
+	//diagonal 1
+	if (numbers[0] == 'X' && numbers[4] == 'X' && numbers[8] != 'O')
+	{
+		winningChance = 8;
+		return winningChance;
+	}
+	if (numbers[4] == 'X' && numbers[8] == 'X' && numbers[0] != 'O')
+	{
+		winningChance = 0;
+		return winningChance;
+	}
+	if (numbers[0] == 'X' && numbers[8] == 'X' && numbers[4] != 'O')
+	{
+		winningChance = 4;
+		return winningChance;
+	}
+
+	//diagonal 2
+	if (numbers[2] == 'X' && numbers[4] == 'X' && numbers[6] != 'O')
+	{
+		winningChance = 6;
+		return winningChance;
+	}
+	if (numbers[4] == 'X' && numbers[6] == 'X' && numbers[0] != 'O')
+	{
+		winningChance = 0;
+		return winningChance;
+	}
+	if (numbers[0] == 'X' && numbers[8] == 'X' && numbers[4] != 'O')
+	{
+		winningChance = 4;
+		return winningChance;
+	}
 	
 	return winningChance;
 }
@@ -618,7 +703,9 @@ int playTTT2(char numbers[])
 			chrono::steady_clock::time_point end = chrono::steady_clock::now();
 			int time = chrono::duration_cast<chrono::seconds>(end - begin).count();
 
-			if (time > 9999)
+			winner = checkWinner(numbers);
+
+			if (time > 999)
 			{
 				system("cls");
 				cout << "Time violation! You automatically lost. Press y to continue" << endl;
@@ -627,26 +714,29 @@ int playTTT2(char numbers[])
 				return 0;
 			}
 
-			winner = checkWinner(numbers);
-
 			if (winner == 1)
 			{
 				system("cls");
-				cout << "Player 1 wins!!\n" << endl;
+				drawBoard(numbers);
+				cout << "\n\nPlayer 1 wins!!\n" << endl;
 				return winner;
 			}
 			else if (winner == 2)
 			{
 				system("cls");
-				cout << "Player 2 wins!!\n" << endl;
+				drawBoard(numbers);
+				cout << "\n\nPlayer 2 wins!!\n" << endl;
 				return winner;
 			}
-			else if (drawCount == 9)
+			else if (drawCount == 5)
 			{
 				system("cls");
-				cout << "It's a draw!!\n" << endl;
+				drawBoard(numbers);
+				cout << "\n\nIt's a draw!!\n" << endl;
+				winner = 3;
 				return winner;
 			}
+			
 			drawBoard(numbers);
 
 		} while (tryAgain == true);
@@ -657,8 +747,23 @@ int playTTT2(char numbers[])
 		{
 			cpuSelection(numbers);
 			playerChange();
-		}
+			winner = checkWinner(numbers);
 
+			if (winner == 1)
+			{
+				system("cls");
+				drawBoard(numbers);
+				cout << "\n\nPlayer 1 wins!!\n" << endl;
+				return winner;
+			}
+			else if (winner == 2)
+			{
+				system("cls");
+				drawBoard(numbers);
+				cout << "\n\nPlayer 2 wins!!\n" << endl;
+				return winner;
+			}
+		}
 	}
 	system("cls");
 
