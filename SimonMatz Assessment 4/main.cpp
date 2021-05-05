@@ -37,20 +37,21 @@ void main()
 			do
 			{
 				char numbers[9]{ '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
 				winner = playTTT(numbers);
 
-				fstream  writeFile;
-				//append mode FROM: https://stackoverflow.com/questions/4155537/writing-into-a-text-file-without-overwriting-it
-				writeFile.open("PlayerVsPlayerScores.txt", fstream::app);
-				writeFile << winner << endl;
-				writeFile.close();
-
-				if (winner == 1 || winner == 2)
+				if (winner == 1 || winner == 2 || winner == 5)
 				{
 					cout << "Enter 1 to play again or any other number to return to menu > ";
 					cin >> playAgain;
 					system("cls");
 				}
+
+				fstream  writeFile;
+				//append mode FROM: https://stackoverflow.com/questions/4155537/writing-into-a-text-file-without-overwriting-it
+				writeFile.open("P1-P2-Wins.txt", fstream::app);
+				writeFile << winner << " ";
+				writeFile.close();	
 
 			} while (playAgain == 1);
 		}
@@ -62,20 +63,21 @@ void main()
 			do
 			{
 				char numbers[9]{ '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
 				winner = playTTT2(numbers);
 
-				fstream  writeFile;
-				//append mode FROM: https://stackoverflow.com/questions/4155537/writing-into-a-text-file-without-overwriting-it
-				writeFile.open("PlayerVsCpuScores.txt", fstream::app);
-				writeFile << winner << endl;
-				writeFile.close();
-
-				if (winner == 1 || winner == 2 || winner == 3)
+				if (winner == 3 || winner == 4 || winner == 5)
 				{
 					cout << "Enter 1 to play again or any other number to return to menu > ";
 					cin >> playAgain;
 					system("cls");
 				}
+				
+				fstream  writeFile;
+				//append mode FROM: https://stackoverflow.com/questions/4155537/writing-into-a-text-file-without-overwriting-it
+				writeFile.open("P1-P2-Wins.txt", fstream::app);
+				writeFile << winner << " ";
+				writeFile.close();
 
 			} while (playAgain == 1);
 		}
@@ -86,13 +88,11 @@ void main()
 
 			do
 			{
-				cout << "Scores coming soon...\n\n" << endl;
+				showScores();
 
-				
-					cout << "Enter 2 to return to menu > ";
-					cin >> playAgain;
-					system("cls");
-				
+				cout << "\n\nEnter 2 to return to menu > ";
+				cin >> playAgain;
+				system("cls");
 
 			} while (playAgain == 1);
 		}

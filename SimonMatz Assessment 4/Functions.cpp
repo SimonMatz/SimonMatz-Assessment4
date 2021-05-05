@@ -4,15 +4,13 @@
 #include <string>
 #include <ctime>
 #include <chrono>
+#include <vector>
 #include <fstream>
 #include "termcolor.h"
 #include "Functions.h"
-//#include "textpixels.h"
 
 using namespace std;
 using namespace termcolor;
-
-
 
 
 enum MenuChoice
@@ -344,24 +342,52 @@ int checkWinner(char numbers[])
 
 void showScores()
 {
+	int wins = 0;
+	const int pvp1 = 1;
+	const int pvp2 = 2;
+	const int pvc1 = 3;
+	const int pvc2 = 4;
+
+	int pvpP1wins = 0;
+	int pvpP2wins = 0;
+	int pvcP1wins = 0;
+	int pvcP2wins = 0;
+
+	vector <int> winsVector;
+
+	ifstream readFile;
+
+	readFile.open("P1-P2-Wins.txt");
+
+	while (readFile >> wins)
+	{
+		winsVector.push_back(wins);
+	}
+
+	while (readFile.is_open())
+	{
+
+		for (int i = 0; i < winsVector.size(); i++)
+		{
+			if (pvp1 == winsVector[i])
+				pvpP1wins++;
+
+			if (pvp2 == winsVector[i])
+				pvpP2wins++;
+
+			if (pvc1 == winsVector[i])
+				pvcP1wins++;
+
+			if (pvc2 == winsVector[i])
+				pvcP2wins++;
+		}
+		readFile.close();
+	}
+	cout << "xxxxx Player vs Player xxxxx \t\t xxxxx Player vs Computer xxxxx\n\n" << endl;
+	cout << "      Player1 wins: " << pvpP1wins << "\t\t\t\tPlayer wins: " << pvcP1wins << endl << endl;
+	cout << "      Player2 wins: " << pvpP2wins << "\t\t\t\tComputer wins: " << pvcP2wins << endl << endl;
 	
-
-	//ifstream readFile;
-	//readFile.open("PlayerVsPlayerScores.txt");
-
-	////using pointers to create dynamic size array
-	//int* wins = new int[amountOfWins];
-	////variable for looping through array
-	//int count1 = 0;
-
-	////looping through line 4 until end of file and storing numbers in array
-	//while (!readFile.eof())
-	//{
-	//	readFile >> wins[count1];
-	//	count1++;
-	//}
-	//readFile.close();
-
+	
 }
 
 int playTTT(char numbers[])
@@ -408,6 +434,7 @@ int playTTT(char numbers[])
 			{
 				system("cls");
 				cout << "It's a draw!!\n" << endl;
+				winner = 5;
 				return winner;
 			}
 			drawBoard(numbers);
@@ -555,7 +582,7 @@ int blockWin(char numbers[])
 		winningChance = 0;
 		return winningChance;
 	}
-	if (numbers[0] == 'X' && numbers[8] == 'X' && numbers[4] != 'O')
+	if (numbers[2] == 'X' && numbers[6] == 'X' && numbers[4] != 'O')
 	{
 		winningChance = 4;
 		return winningChance;
@@ -719,6 +746,7 @@ int playTTT2(char numbers[])
 				system("cls");
 				drawBoard(numbers);
 				cout << "\n\nPlayer 1 wins!!\n" << endl;
+				winner = 3;
 				return winner;
 			}
 			else if (winner == 2)
@@ -726,6 +754,7 @@ int playTTT2(char numbers[])
 				system("cls");
 				drawBoard(numbers);
 				cout << "\n\nPlayer 2 wins!!\n" << endl;
+				winner = 4;
 				return winner;
 			}
 			else if (drawCount == 5)
@@ -733,7 +762,7 @@ int playTTT2(char numbers[])
 				system("cls");
 				drawBoard(numbers);
 				cout << "\n\nIt's a draw!!\n" << endl;
-				winner = 3;
+				winner = 5;
 				return winner;
 			}
 			
@@ -754,6 +783,7 @@ int playTTT2(char numbers[])
 				system("cls");
 				drawBoard(numbers);
 				cout << "\n\nPlayer 1 wins!!\n" << endl;
+				winner = 3;
 				return winner;
 			}
 			else if (winner == 2)
@@ -761,6 +791,7 @@ int playTTT2(char numbers[])
 				system("cls");
 				drawBoard(numbers);
 				cout << "\n\nPlayer 2 wins!!\n" << endl;
+				winner = 4;
 				return winner;
 			}
 		}
