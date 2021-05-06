@@ -92,8 +92,8 @@ void selection(char numbers[])
 	int a = 0;
 
 	while (true)
-	{	
-		cout << "\nEnter number to play accordingly > ";
+	{
+		cout << "\nEnter number 1-9 to place marker accordingly > ";
 		cin >> a;
 
 		if (a == 1)
@@ -107,8 +107,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR. Press y to continue\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 			return;
@@ -124,8 +124,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR 2\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 			return;
@@ -140,8 +140,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR. Press y to continue\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 			return;
@@ -157,8 +157,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR. Press y to continue\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 			return;
@@ -173,8 +173,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR. Press y to continue\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 			return;
@@ -191,8 +191,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR. Press y to continue\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 			return;
@@ -207,8 +207,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR. Press y to continue\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 			return;
@@ -224,8 +224,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR. Press y to continue\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 
@@ -241,8 +241,8 @@ void selection(char numbers[])
 
 			else
 			{
-				cout << "\nERROR. Press y to continue\n\n";
-				cin >> pause;
+				cout << "\nThis field is already taken. Try again!\n\n";
+				Sleep(2500);
 				tryAgain = true;
 			}
 
@@ -387,8 +387,8 @@ void showScores()
 	cout << "xxxxx Player vs Player xxxxx \t\t xxxxx Player vs Computer xxxxx\n\n" << endl;
 	cout << "      Player1 wins: " << pvpP1wins << "\t\t\t\tPlayer wins: " << pvcP1wins << endl << endl;
 	cout << "      Player2 wins: " << pvpP2wins << "\t\t\t\tComputer wins: " << pvcP2wins << endl << endl;
-	
-	
+
+
 }
 
 int playTTT(char numbers[])
@@ -422,19 +422,22 @@ int playTTT(char numbers[])
 			if (winner == 1)
 			{
 				system("cls");
-				cout << "Player 1 wins!!\n" << endl;
+				drawBoard(numbers);
+				cout << "\n\nPlayer 1 wins!!\n" << endl;
 				return winner;
 			}
 			else if (winner == 2)
 			{
 				system("cls");
-				cout << "Player 2 wins!!\n" << endl;
+				drawBoard(numbers);
+				cout << "\n\nPlayer 2 wins!!\n" << endl;
 				return winner;
 			}
 			else if (drawCount == 9)
 			{
 				system("cls");
-				cout << "It's a draw!!\n" << endl;
+				drawBoard(numbers);
+				cout << "\n\nIt's a draw!!\n" << endl;
 				winner = 5;
 				return winner;
 			}
@@ -443,7 +446,7 @@ int playTTT(char numbers[])
 		} while (tryAgain == true);
 
 		playerChange();
-		
+
 	}
 	system("cls");
 
@@ -453,7 +456,7 @@ int playTTT(char numbers[])
 int blockWin(char numbers[])
 {
 	int winningChance = -1;
-	
+
 	//top row
 	if (numbers[0] == 'X' && numbers[1] == 'X' && numbers[2] != 'O')
 	{
@@ -588,7 +591,7 @@ int blockWin(char numbers[])
 		winningChance = 4;
 		return winningChance;
 	}
-	
+
 	return winningChance;
 }
 
@@ -732,7 +735,7 @@ int winningMove(char numbers[])
 	}
 
 	return playToWin;
-	
+
 }
 
 void cpuSelection(char numbers[])
@@ -741,7 +744,7 @@ void cpuSelection(char numbers[])
 	{
 		int playToWin = winningMove(numbers);
 		int winningChance = blockWin(numbers);
-		
+
 		if (playToWin != -1)
 		{
 			numbers[playToWin] = player;
@@ -755,7 +758,7 @@ void cpuSelection(char numbers[])
 			tryAgain = false;
 			winningChance = -1;
 		}
-		
+
 		else
 		{
 			srand(time(0));
@@ -860,7 +863,7 @@ void cpuSelection(char numbers[])
 					tryAgain = true;
 			}
 		}
-	}while (tryAgain == true);
+	} while (tryAgain == true);
 }
 
 int playTTT2(char numbers[])
@@ -917,12 +920,12 @@ int playTTT2(char numbers[])
 				winner = 5;
 				return winner;
 			}
-			
+
 			drawBoard(numbers);
 
 		} while (tryAgain == true);
 
-		cpuPlayer=playerChange();
+		cpuPlayer = playerChange();
 
 		if (cpuPlayer == 'O')
 		{

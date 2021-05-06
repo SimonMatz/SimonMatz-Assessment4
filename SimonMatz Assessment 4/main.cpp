@@ -42,9 +42,10 @@ void main()
 
 				if (winner == 1 || winner == 2 || winner == 5)
 				{
-					cout << "Enter 1 to play again or any other number to return to menu > ";
+					cout << "\nEnter 1 to play again or any other number to return to menu > ";
 					cin >> playAgain;
 					system("cls");
+					//player = 'X';
 				}
 
 				fstream  writeFile;
@@ -68,7 +69,7 @@ void main()
 
 				if (winner == 3 || winner == 4 || winner == 5)
 				{
-					cout << "Enter 1 to play again or any other number to return to menu > ";
+					cout << "\nEnter 1 to play again or any other number to return to menu > ";
 					cin >> playAgain;
 					system("cls");
 				}
@@ -84,17 +85,17 @@ void main()
 
 		else if (choice == SCORES)
 		{
+			int goBack = 0;
+
 			system("cls");
 
 			do
 			{
 				showScores();
+				cout << "\n\n\n\nEnter any number to return to menu > ";
+				cin >> goBack;
 
-				cout << "\n\nEnter 2 to return to menu > ";
-				cin >> playAgain;
-				system("cls");
-
-			} while (playAgain == 1);
+			} while (goBack == 0);
 		}
 
 	} while (choice != EXIT);
