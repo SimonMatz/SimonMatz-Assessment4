@@ -340,6 +340,7 @@ int checkWinner(char numbers[])
 	return winner;
 }
 
+// Used https://www.youtube.com/watch?v=1Vdb1DcXtFk as guide for counting different numbers
 void showScores()
 {
 	int wins = 0;
@@ -577,9 +578,9 @@ int blockWin(char numbers[])
 		winningChance = 6;
 		return winningChance;
 	}
-	if (numbers[4] == 'X' && numbers[6] == 'X' && numbers[0] != 'O')
+	if (numbers[4] == 'X' && numbers[6] == 'X' && numbers[2] != 'O')
 	{
-		winningChance = 0;
+		winningChance = 2;
 		return winningChance;
 	}
 	if (numbers[2] == 'X' && numbers[6] == 'X' && numbers[4] != 'O')
@@ -591,13 +592,164 @@ int blockWin(char numbers[])
 	return winningChance;
 }
 
+int winningMove(char numbers[])
+{
+	int playToWin = -1;
+
+	//top row
+	if (numbers[0] == 'O' && numbers[1] == 'O' && numbers[2] != 'X')
+	{
+		playToWin = 2;
+		return playToWin;
+	}
+	if (numbers[1] == 'O' && numbers[2] == 'O' && numbers[0] != 'X')
+	{
+		playToWin = 0;
+		return playToWin;
+	}
+	if (numbers[0] == 'O' && numbers[2] == 'O' && numbers[1] != 'X')
+	{
+		playToWin = 1;
+		return playToWin;
+	}
+
+	//middle row
+	if (numbers[3] == 'O' && numbers[4] == 'O' && numbers[5] != 'X')
+	{
+		playToWin = 5;
+		return playToWin;
+	}
+	if (numbers[4] == 'O' && numbers[5] == 'O' && numbers[3] != 'X')
+	{
+		playToWin = 3;
+		return playToWin;
+	}
+	if (numbers[3] == 'O' && numbers[5] == 'O' && numbers[4] != 'X')
+	{
+		playToWin = 4;
+		return playToWin;
+	}
+	//bottom row
+	if (numbers[6] == 'O' && numbers[7] == 'O' && numbers[8] != 'X')
+	{
+		playToWin = 8;
+		return playToWin;
+	}
+	if (numbers[7] == 'O' && numbers[8] == 'O' && numbers[6] != 'X')
+	{
+		playToWin = 6;
+		return playToWin;
+	}
+	if (numbers[6] == 'O' && numbers[8] == 'O' && numbers[7] != 'X')
+	{
+		playToWin = 7;
+		return playToWin;
+	}
+
+	//left row
+	if (numbers[0] == 'O' && numbers[3] == 'O' && numbers[6] != 'X')
+	{
+		playToWin = 6;
+		return playToWin;
+	}
+	if (numbers[3] == 'O' && numbers[6] == 'O' && numbers[0] != 'X')
+	{
+		playToWin = 0;
+		return playToWin;
+	}
+	if (numbers[0] == 'O' && numbers[6] == 'O' && numbers[3] != 'X')
+	{
+		playToWin = 3;
+		return playToWin;
+	}
+
+	//middle down
+	if (numbers[1] == 'O' && numbers[4] == 'O' && numbers[7] != 'X')
+	{
+		playToWin = 7;
+		return playToWin;
+	}
+	if (numbers[4] == 'O' && numbers[7] == 'O' && numbers[1] != 'X')
+	{
+		playToWin = 1;
+		return playToWin;
+	}
+	if (numbers[1] == 'O' && numbers[7] == 'O' && numbers[4] != 'X')
+	{
+		playToWin = 4;
+		return playToWin;
+	}
+
+	//right row
+	if (numbers[2] == 'O' && numbers[5] == 'O' && numbers[8] != 'X')
+	{
+		playToWin = 8;
+		return playToWin;
+	}
+	if (numbers[5] == 'O' && numbers[8] == 'O' && numbers[2] != 'X')
+	{
+		playToWin = 2;
+		return playToWin;
+	}
+	if (numbers[2] == 'O' && numbers[8] == 'O' && numbers[5] != 'X')
+	{
+		playToWin = 5;
+		return playToWin;
+	}
+
+	//diagonal 1
+	if (numbers[0] == 'O' && numbers[4] == 'O' && numbers[8] != 'X')
+	{
+		playToWin = 8;
+		return playToWin;
+	}
+	if (numbers[4] == 'O' && numbers[8] == 'O' && numbers[0] != 'X')
+	{
+		playToWin = 0;
+		return playToWin;
+	}
+	if (numbers[0] == 'O' && numbers[8] == 'O' && numbers[4] != 'X')
+	{
+		playToWin = 4;
+		return playToWin;
+	}
+
+	//diagonal 2
+	if (numbers[2] == 'O' && numbers[4] == 'O' && numbers[6] != 'X')
+	{
+		playToWin = 6;
+		return playToWin;
+	}
+	if (numbers[4] == 'O' && numbers[6] == 'O' && numbers[0] != 'X')
+	{
+		playToWin = 0;
+		return playToWin;
+	}
+	if (numbers[2] == 'O' && numbers[6] == 'O' && numbers[4] != 'X')
+	{
+		playToWin = 4;
+		return playToWin;
+	}
+
+	return playToWin;
+	
+}
+
 void cpuSelection(char numbers[])
 {
 	do
 	{
+		int playToWin = winningMove(numbers);
 		int winningChance = blockWin(numbers);
+		
+		if (playToWin != -1)
+		{
+			numbers[playToWin] = player;
+			tryAgain = false;
+			playToWin = -1;
+		}
 
-		if (winningChance != -1)
+		else if (winningChance != -1)
 		{
 			numbers[winningChance] = player;
 			tryAgain = false;

@@ -24,6 +24,8 @@ int playTTT(char numbers[]);
 
 int blockWin(char numbers[]);
 
+int winningMove(char numbers[]);
+
 void cpuSelection(char numbers[]);
 
 int playTTT2(char numbers[]);
