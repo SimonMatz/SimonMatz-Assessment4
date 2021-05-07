@@ -15,7 +15,7 @@ enum MenuChoice
 	PLAY2,
 	SCORES,
 	EXIT,
-	CHOICES_END //will alsways be last valid choice +1
+	CHOICES_END //will always be last valid choice +1
 };
 
 void main()
@@ -45,7 +45,6 @@ void main()
 					cout << "\nEnter 1 to play again or any other number to return to menu > ";
 					cin >> playAgain;
 					system("cls");
-					//player = 'X';
 				}
 
 				fstream  writeFile;

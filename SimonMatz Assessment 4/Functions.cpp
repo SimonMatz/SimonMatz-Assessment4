@@ -93,8 +93,16 @@ void selection(char numbers[])
 
 	while (true)
 	{
-		cout << "\nEnter number 1-9 to place marker accordingly > ";
-		cin >> a;
+		if (player == 'X')
+		{
+			cout << "\nPlayer 1 - it's your turn!\n\nEnter number 1-9 to place marker accordingly > ";
+			cin >> a;
+		}
+		else if (player == 'O')
+		{
+			cout << "\nPlayer 2 - it's your turn!\n\nEnter number 1-9 to place marker accordingly > ";
+			cin >> a;
+		}
 
 		if (a == 1)
 		{
@@ -384,7 +392,7 @@ void showScores()
 		}
 		readFile.close();
 	}
-	cout << "xxxxx Player vs Player xxxxx \t\t xxxxx Player vs Computer xxxxx\n\n" << endl;
+	cout << on_green << "xxxxx Player vs Player xxxxx" << reset << "\t\t" << on_cyan << "xxxxx Player vs Computer xxxxx\n\n" << reset << endl;
 	cout << "      Player1 wins: " << pvpP1wins << "\t\t\t\tPlayer wins: " << pvcP1wins << endl << endl;
 	cout << "      Player2 wins: " << pvpP2wins << "\t\t\t\tComputer wins: " << pvcP2wins << endl << endl;
 
@@ -397,7 +405,6 @@ int playTTT(char numbers[])
 	while (winner != 1 || winner != 2)
 	{
 		drawCount++;
-		string next;
 		winner = 0;
 
 		drawBoard(numbers);
@@ -408,13 +415,23 @@ int playTTT(char numbers[])
 			chrono::steady_clock::time_point end = chrono::steady_clock::now();
 			int time = chrono::duration_cast<chrono::seconds>(end - begin).count();
 
-			if (time > 9999)
+			if (time > 10 && player == 'X')
 			{
 				system("cls");
-				cout << "Time violation! You automatically lost. Press y to continue" << endl;
-				cin >> next;
+				cout << "Time violation! Player 1 lost."<< endl;
+				Sleep(2000);
+				
+				winner = 2;
+				return winner;
+			}
+			else if (time > 10 && player == 'O')
+			{
+				system("cls");
+				cout << "Time violation! Player 2 lost." << endl;
+				Sleep(2000);
 
-				return 0;
+				winner = 1;
+				return winner;
 			}
 
 			winner = checkWinner(numbers);
@@ -874,7 +891,6 @@ int playTTT2(char numbers[])
 	while (winner != 1 || winner != 2)
 	{
 		drawCount++;
-		string next;
 		winner = 0;
 
 		drawBoard(numbers);
@@ -887,13 +903,14 @@ int playTTT2(char numbers[])
 
 			winner = checkWinner(numbers);
 
-			if (time > 999)
+			if (time > 10 && player == 'X')
 			{
 				system("cls");
-				cout << "Time violation! You automatically lost. Press y to continue" << endl;
-				cin >> next;
+				cout << "Time violation! Player 1 lost." << endl;
+				Sleep(2000);
 
-				return 0;
+				winner = 4;
+				return winner;
 			}
 
 			if (winner == 1)
@@ -908,7 +925,7 @@ int playTTT2(char numbers[])
 			{
 				system("cls");
 				drawBoard(numbers);
-				cout << "\n\nPlayer 2 wins!!\n" << endl;
+				cout << "\n\nComputer wins!!\n" << endl;
 				winner = 4;
 				return winner;
 			}
@@ -945,7 +962,7 @@ int playTTT2(char numbers[])
 			{
 				system("cls");
 				drawBoard(numbers);
-				cout << "\n\nPlayer 2 wins!!\n" << endl;
+				cout << "\n\nComputer wins!!\n" << endl;
 				winner = 4;
 				return winner;
 			}
