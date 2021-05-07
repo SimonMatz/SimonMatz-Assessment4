@@ -1,6 +1,8 @@
+//Simon Matz A00018077 Assessment 4
+//Github respository link: https://github.com/SimonMatz/SimonMatz-Assessment4
+
 #include <iostream>
 #include <Windows.h>
-#include <conio.h>
 #include <string>
 #include <ctime>
 #include <chrono>
@@ -12,7 +14,6 @@
 using namespace std;
 using namespace termcolor;
 
-
 enum MenuChoice
 {
 	PLAY = 1,
@@ -22,12 +23,14 @@ enum MenuChoice
 	CHOICES_END     //will always be last valid choice +1
 };
 
+//was able to use the same menu screen setup I made for ISE102 Poker Machine game
 int displayMenuScreen()
 {
 	bool validChoice = false;
 	int choice = 0;
 	string error = "";
 
+	//main menu with 4 options, tells user if wrong input and ask to try again
 	while (!validChoice)
 	{
 		cout << on_red << "xxxxxxxxxx  Welcome to Tic Tac Toe  xxxxxxxxxx\n\n" << reset;
@@ -88,9 +91,10 @@ char playerChange()
 
 void selection(char numbers[])
 {
-	string pause;
+	//variable to store user input
 	int a = 0;
 
+	//takes user input and stores player symbol in numbers array.
 	while (true)
 	{
 		if (player == 'X')
@@ -113,6 +117,7 @@ void selection(char numbers[])
 				tryAgain = false;
 			}
 
+			//checks if field is already taken and sets tryAgain to true so player can choose another field
 			else
 			{
 				cout << "\nThis field is already taken. Try again!\n\n";
@@ -259,9 +264,11 @@ void selection(char numbers[])
 	}
 }
 
+//8 possible win combinations per player
 int checkWinner(char numbers[])
 {
 	//player 1 win check
+	//goes through all combinations of board placements and returns winner value 1
 	if (numbers[0] == 'X' && numbers[1] == 'X' && numbers[2] == 'X')
 	{
 		winner = 1;
@@ -304,6 +311,7 @@ int checkWinner(char numbers[])
 	}
 
 	//player 2 win check
+	//goes through all combinations of board placements and returns winner value 2
 	if (numbers[0] == 'O' && numbers[1] == 'O' && numbers[2] == 'O')
 	{
 		winner = 2;
@@ -470,14 +478,22 @@ int playTTT(char numbers[])
 	return winner;
 }
 
+//uses the same logic as check for win and goes through all possible constelations
 int blockWin(char numbers[])
 {
+	//variable for where the actual marker will be placed when drawing the board
 	int winningChance = -1;
+	
+	//checks if there are two X next to each other to block possible win
+	//also checks that it hasn't been blocked before
+
 
 	//top row
 	if (numbers[0] == 'X' && numbers[1] == 'X' && numbers[2] != 'O')
 	{
+		//value for winningChance will be relevant array location 
 		winningChance = 2;
+		//returns the marker location for the cpuSelection function
 		return winningChance;
 	}
 	if (numbers[1] == 'X' && numbers[2] == 'X' && numbers[0] != 'O')
@@ -609,17 +625,22 @@ int blockWin(char numbers[])
 		return winningChance;
 	}
 
+	//returns -1 if none of above conditions are true
 	return winningChance;
 }
 
+//same concept as blockWin just instead checks if there are two O next to each other to win
 int winningMove(char numbers[])
 {
+	//variable for where the actual marker will be placed when drawing the board
 	int playToWin = -1;
 
 	//top row
 	if (numbers[0] == 'O' && numbers[1] == 'O' && numbers[2] != 'X')
 	{
+		//value for playToWin will be relevant array location 
 		playToWin = 2;
+		//returns the marker location for the cpuSelection function
 		return playToWin;
 	}
 	if (numbers[1] == 'O' && numbers[2] == 'O' && numbers[0] != 'X')
@@ -751,8 +772,8 @@ int winningMove(char numbers[])
 		return playToWin;
 	}
 
+	//returns -1 if none of above conditions are true
 	return playToWin;
-
 }
 
 void cpuSelection(char numbers[])
