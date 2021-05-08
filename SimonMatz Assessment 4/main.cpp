@@ -21,7 +21,6 @@ enum MenuChoice
 
 void main()
 {
-
 	int winner = 0;
 	int choice = 0;
 	int playAgain = 0;
@@ -59,7 +58,7 @@ void main()
 				writeFile.open("P1-P2-Wins.txt", fstream::app);
 				writeFile << winner << " ";
 				writeFile.close();	
-
+				
 			} while (playAgain == 1);
 		}
 
@@ -98,7 +97,6 @@ void main()
 		else if (choice == SCORES)
 		{
 			int goBack = 0;
-
 			system("cls");
 
 			do

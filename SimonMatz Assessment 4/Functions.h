@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// had to use static othwerwise weird build errors
+//had to use static, othwerwise weird build errors
 static char player = 'X';
 static bool tryAgain = false;
 static int winner = 0;

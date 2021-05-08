@@ -108,6 +108,15 @@ void selection(char numbers[])
 			cin >> a;
 		}
 
+		//checks if input is valid and sets tryAgain to true so player can try again
+		if (a > 9 || a < 1)
+		{
+			cout << "\nYou can only choose 1-9. Try again!\n\n";
+			Sleep(2500);
+			tryAgain = true;
+			return;
+		}
+
 		if (a == 1)
 		{
 
@@ -360,6 +369,8 @@ int checkWinner(char numbers[])
 void showScores()
 {
 	int wins = 0;
+
+	//fixed variables for each winner in both modes
 	const int pvp1 = 1;
 	const int pvp2 = 2;
 	const int pvc1 = 3;
@@ -372,20 +383,22 @@ void showScores()
 
 	vector <int> winsVector;
 
+	//open file with winner numbers and stores them in vector
 	ifstream readFile;
-
 	readFile.open("P1-P2-Wins.txt");
 
+	//reads through file and inserts each number in the vector
 	while (readFile >> wins)
 	{
 		winsVector.push_back(wins);
 	}
 
+	//loops through vector and checks how many of each number are in vector
 	while (readFile.is_open())
 	{
-
 		for (int i = 0; i < winsVector.size(); i++)
 		{
+			//if numbers from variable is found, increase the different win variables for each player per game mode
 			if (pvp1 == winsVector[i])
 				pvpP1wins++;
 
@@ -400,39 +413,46 @@ void showScores()
 		}
 		readFile.close();
 	}
+	// outputs the amount of numbers 1-4 in the vector which shows how many time each player won in each game mode
 	cout << on_green << "xxxxx Player vs Player xxxxx" << reset << "\t\t" << on_cyan << "xxxxx Player vs Computer xxxxx\n\n" << reset << endl;
 	cout << "      Player1 wins: " << pvpP1wins << "\t\t\t\tPlayer wins: " << pvcP1wins << endl << endl;
 	cout << "      Player2 wins: " << pvpP2wins << "\t\t\t\tComputer wins: " << pvcP2wins << endl << endl;
-
-
 }
 
 int playTTT(char numbers[])
 {
+	//variable to count rounds played to know when it's a draw
 	int drawCount = 0;
-	while (winner != 1 || winner != 2)
+
+	//loops until one condition returns to end loop
+	while (true)
 	{
+		//every round the draw count is increased by 1 until 9 will be the draw
 		drawCount++;
 		winner = 0;
 
 		drawBoard(numbers);
+
+		//loops without changing player to let player choose again after choosing already taken field
 		do
 		{
+			//takes time before and after player field selection
 			chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 			selection(numbers);
 			chrono::steady_clock::time_point end = chrono::steady_clock::now();
 			int time = chrono::duration_cast<chrono::seconds>(end - begin).count();
 
-			if (time > 10 && player == 'X')
+			//time violation message(30 sec)and lost game
+			if (time > 30 && player == 'X')
 			{
 				system("cls");
-				cout << "Time violation! Player 1 lost."<< endl;
+				cout << "Time violation! Player 1 lost." << endl;
 				Sleep(2000);
-				
+
 				winner = 2;
 				return winner;
 			}
-			else if (time > 10 && player == 'O')
+			else if (time > 30 && player == 'O')
 			{
 				system("cls");
 				cout << "Time violation! Player 2 lost." << endl;
@@ -442,8 +462,10 @@ int playTTT(char numbers[])
 				return winner;
 			}
 
+			//checks if winning condition is met and returns the winner
 			winner = checkWinner(numbers);
 
+			//output and return depending on winner
 			if (winner == 1)
 			{
 				system("cls");
@@ -466,13 +488,16 @@ int playTTT(char numbers[])
 				winner = 5;
 				return winner;
 			}
+
+			//clear screen and draw board again
 			drawBoard(numbers);
 
 		} while (tryAgain == true);
 
+		//doesn't change player until tryAgain is false
 		playerChange();
-
 	}
+
 	system("cls");
 
 	return winner;
@@ -483,7 +508,7 @@ int blockWin(char numbers[])
 {
 	//variable for where the actual marker will be placed when drawing the board
 	int winningChance = -1;
-	
+
 	//checks if there are two X next to each other to block possible win
 	//also checks that it hasn't been blocked before
 
@@ -776,13 +801,18 @@ int winningMove(char numbers[])
 	return playToWin;
 }
 
+//here the computer makes their move each round
+//either random, to block win or to play for win
 void cpuSelection(char numbers[])
 {
+	//loops until tryAgain becomes false
 	do
 	{
+		//functions returns location on grid 0-8 to win or block on relating field
 		int playToWin = winningMove(numbers);
 		int winningChance = blockWin(numbers);
 
+		//first priority of computer is win if there is a chance
 		if (playToWin != -1)
 		{
 			numbers[playToWin] = player;
@@ -790,6 +820,7 @@ void cpuSelection(char numbers[])
 			playToWin = -1;
 		}
 
+		//second priority to block if p1 has winning chance
 		else if (winningChance != -1)
 		{
 			numbers[winningChance] = player;
@@ -797,18 +828,24 @@ void cpuSelection(char numbers[])
 			winningChance = -1;
 		}
 
+		//if both options above are not met, play random turn on a free field
 		else
 		{
+			//seeds random number generator with current time
 			srand(time(0));
+			//generates random number from 1-9
 			int a = (rand() % 9) + 1;
 
+			
 			if (a == 1)
 			{
+				//if the field is not already taken - place marker
 				if (numbers[0] == '1')
 				{
 					numbers[0] = player;
 					tryAgain = false;
 				}
+				//if it's already taken, start again from top and generate new rand number
 				else
 					tryAgain = true;
 			}
@@ -901,22 +938,31 @@ void cpuSelection(char numbers[])
 					tryAgain = true;
 			}
 		}
-	} while (tryAgain == true);
+	} while (tryAgain == true); //when marker is placed successfully, end here
 }
 
 int playTTT2(char numbers[])
 {
+	//variable to count rounds played to know when it's a draw
 	int drawCount = 0;
 	char cpuPlayer;
 
-	while (winner != 1 || winner != 2)
+	//loops until one condition returns to end loop
+	while (true)
 	{
+		//sets player to p1 at beginning of every round
+		//to prevent player 2 start in PvC mode
+		player = 'X';
+
+		//every round the draw count is increased by 1 until 5 will be the draw
+		//1 round is one player and one computer move
 		drawCount++;
 		winner = 0;
 
 		drawBoard(numbers);
 		do
 		{
+			//takes time before and after player field selection
 			chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 			selection(numbers);
 			chrono::steady_clock::time_point end = chrono::steady_clock::now();
@@ -924,7 +970,8 @@ int playTTT2(char numbers[])
 
 			winner = checkWinner(numbers);
 
-			if (time > 10 && player == 'X')
+			//time violation message(30 sec)and lost game
+			if (time > 30 && player == 'X')
 			{
 				system("cls");
 				cout << "Time violation! Player 1 lost." << endl;
@@ -934,6 +981,8 @@ int playTTT2(char numbers[])
 				return winner;
 			}
 
+			//p1/p2 winner value is still 1/2
+			//but for scoring purpose change to 3/4 to return different values for show scores screen
 			if (winner == 1)
 			{
 				system("cls");
@@ -959,16 +1008,22 @@ int playTTT2(char numbers[])
 				return winner;
 			}
 
+			//clear screen and draw board again
 			drawBoard(numbers);
 
 		} while (tryAgain == true);
 
+		//if playerChange returns 'O' - it's computers turn
 		cpuPlayer = playerChange();
 
+		//this only executes if player is 'O'
 		if (cpuPlayer == 'O')
 		{
+			//computer picks field to place marker
 			cpuSelection(numbers);
+			//changes player after move
 			playerChange();
+			//checks if move result was win
 			winner = checkWinner(numbers);
 
 			if (winner == 1)
@@ -989,6 +1044,7 @@ int playTTT2(char numbers[])
 			}
 		}
 	}
+
 	system("cls");
 
 	return winner;
